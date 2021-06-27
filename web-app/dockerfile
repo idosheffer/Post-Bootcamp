@@ -1,0 +1,18 @@
+FROM golang:1.12-alpine
+
+RUN apk add --no-cache git
+
+# Set the Current Working Directory inside the container
+WORKDIR /src/web-app
+
+COPY . .
+
+# Build the Go app
+RUN go build -o ./out/web.go .
+
+
+# This container exposes port 8080 to the outside world
+EXPOSE 80
+
+# Run the binary program produced by `go install`
+CMD ["./out/web-app"]
